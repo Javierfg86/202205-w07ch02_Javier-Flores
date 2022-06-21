@@ -1,3 +1,8 @@
 {
-    "results": []
+    "things": [
+        {
+            "id": 0,
+            "name": "one thing"
+        }
+    ]
 }
