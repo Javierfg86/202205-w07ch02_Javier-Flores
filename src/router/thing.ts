@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { DataController } from '../controllers/thing.controller';
-import { Thing } from '../models/thing.model';
+import { DataController } from '../controllers/thing.controller.js';
+import { Thing } from '../models/thing.model.js';
 export const thingController = new DataController(new Thing());
 export const routerThings = Router();
 

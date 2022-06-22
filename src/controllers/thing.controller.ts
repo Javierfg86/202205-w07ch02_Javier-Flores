@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Response, Request } from 'express';
 
-import { DataModel } from '../models/data.model';
+import { DataModel } from '../models/data.model.js';
 
 export class DataController {
     constructor(public model: DataModel<any>) {}
