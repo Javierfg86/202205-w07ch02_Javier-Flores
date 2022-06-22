@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { DataModel } from './data.model';
+import { DataModel } from './data.model.js';
 
 export interface iThing {
     id: number;
