@@ -1,20 +1,20 @@
 import http from 'http';
-import morgan from 'morgan';
-import express from 'express';
 import { app } from './app';
-import router from './router/home';
-import { routerThings } from './router/thing';
-app.use(morgan('dev'));
-app.use(express.json());
+import { AddressInfo } from 'net';
+
 const PORT = process.env.PORT || 3200;
 const onError = () => {};
-const onListening = () => {};
+const onListening = () => {
+    var addr = server.address();
+    var bind =
+        typeof addr === 'string'
+            ? 'pipe ' + addr
+            : 'port ' + (addr as AddressInfo).port;
+    console.log('Listening on ' + bind);
+};
 app.set('port', PORT);
 
-const thingsServer = http.createServer(app);
-
-app.use('/', router);
-app.use('/things', routerThings);
-thingsServer.listen(PORT);
-thingsServer.on('error', onError);
-thingsServer.on('listening', onListening);
+const server = http.createServer(app);
+server.on('error', onError);
+server.on('listening', onListening);
+server.listen(PORT);
