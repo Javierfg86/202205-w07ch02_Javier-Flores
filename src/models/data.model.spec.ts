@@ -20,7 +20,7 @@ describe('Given a instantiated model DataModel', () => {
     });
     describe('When method find is called', () => {
         test('Then a item should be found', async () => {
-            const result = await model.find(1);
+            const result = await model.find('1');
             expect(result).toStrictEqual(mockItem);
             expect(fs.readFile).toHaveBeenCalled();
         });
@@ -35,21 +35,21 @@ describe('Given a instantiated model DataModel', () => {
     describe('When method update is called', () => {
         test('Then a item should be updated', async () => {
             const updatedPartial = { test: 'test2' };
-            const result = await model.update(1, updatedPartial);
+            const result = await model.update('1', updatedPartial);
             expect(result.test).toBe(updatedPartial.test);
             expect(fs.writeFile).toHaveBeenCalled();
         });
     });
     describe('When method delete is called', () => {
         test('Then a item should be deleted', async () => {
-            const result = await model.delete(1);
+            const result = await model.delete('1');
             expect(result).toStrictEqual({ status: 202 });
             expect(fs.writeFile).toHaveBeenCalled();
         });
     });
     describe('When method delete is called with a not valid id', () => {
         test('Then a item should not be deleted', async () => {
-            const result = await model.delete(4);
+            const result = await model.delete('4');
             expect(result.status).toBe(404);
         });
     });

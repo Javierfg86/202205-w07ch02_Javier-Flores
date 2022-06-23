@@ -19,9 +19,9 @@ export class DataModel<T extends { id: number }> {
     async findAll(): Promise<Array<T>> {
         return this.readFile();
     }
-    async find(id: number): Promise<T | undefined> {
+    async find(id: string): Promise<T | undefined> {
         const fileData = await this.readFile();
-        const item = fileData.find((item) => item.id === id);
+        const item = fileData.find((item) => item.id === +id);
         return item;
     }
     async create(data: Partial<T>): Promise<T> {
@@ -31,12 +31,12 @@ export class DataModel<T extends { id: number }> {
         this.writeFile(fileData);
         return newItem as T;
     }
-    async update(id: number, data: Partial<T>): Promise<T> {
+    async update(id: string, data: Partial<T>): Promise<T> {
         let fileData = await this.readFile();
         if (data.id) delete data.id;
         let updatedItem;
         fileData = fileData.map((item) => {
-            if (item.id === id) {
+            if (item.id === +id) {
                 updatedItem = { ...item, ...data };
                 return updatedItem;
             } else {
@@ -47,10 +47,10 @@ export class DataModel<T extends { id: number }> {
         return updatedItem as unknown as T;
     }
 
-    async delete(id: number) {
+    async delete(id: string) {
         let fileData = await this.readFile();
         const prevLength = fileData.length;
-        fileData = fileData.filter((item) => item.id !== id);
+        fileData = fileData.filter((item) => item.id !== +id);
         if (prevLength === fileData.length) return { status: 404 };
         this.writeFile(fileData);
         return { status: 202 };
