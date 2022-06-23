@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { Response, Request } from 'express';
-
 import { DataModel } from '../models/data.model.js';
 
 export class DataController {
@@ -13,7 +12,7 @@ export class DataController {
     };
     getController = async (req: Request, res: Response) => {
         res.setHeader('Content-type', 'application/json');
-        const result = await this.model.find(+req.params.id);
+        const result = await this.model.find(req.params.id);
         if (result) {
             res.end(JSON.stringify(result));
         } else {
@@ -30,15 +29,12 @@ export class DataController {
     };
 
     patchController = async (req: Request, res: Response) => {
-        const updatedContent = await this.model.update(
-            +req.params.id,
-            req.body
-        );
+        const updatedContent = await this.model.update(req.params.id, req.body);
         res.setHeader('Content-type', 'application/json');
         res.end(JSON.stringify(updatedContent));
     };
     deleteController = async (req: Request, res: Response) => {
-        const { status } = await this.model.delete(+req.params.id);
+        const { status } = await this.model.delete(req.params.id);
         res.status(status);
         res.end(JSON.stringify({}));
     };
